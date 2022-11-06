@@ -1,0 +1,11 @@
+.logout {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+
+button {
+    height: 30px;
+    border: none;
+    background-color: inherit;
+}
