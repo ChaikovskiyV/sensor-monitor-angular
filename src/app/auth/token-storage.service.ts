@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AUTHORITIES_KEY, JWT_TOKEN_KEY, USERNAME_KEY } from 'src/env.consts';
 
+const TOKEN_PREFIX = 'Bearer ';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +22,7 @@ export class TokenStorageService {
 
   public getToken(): string {
     const token = sessionStorage.getItem(JWT_TOKEN_KEY);
-    return token ? token : '';
+    return token ? TOKEN_PREFIX.concat(token) : '';
   }
 
   public saveUsername(username: string) {
