@@ -1,0 +1,27 @@
+.sensor-table {
+    position: absolute;
+    top: 15vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 80vw;
+    min-height: min-content;
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.bordered {
+    border: 2px solid gray;
+}
+
+.less-cell {
+    width: 50px;
+}
+
+.sensor-name {
+    border: none;
+}
+
+button {
+    border: 2px solid gray;
+    background-color: rgb(204, 195, 195);    
+}

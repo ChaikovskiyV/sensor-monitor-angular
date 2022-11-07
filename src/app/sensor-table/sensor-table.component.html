@@ -1,0 +1,34 @@
+<table class="table table-borderless sensor-table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col" class="bordered">Name</th>
+            <th scope="col" class="bordered">Model</th>
+            <th scope="col" class="bordered">Type</th>
+            <th scope="col" class="bordered">Range</th>
+            <th scope="col" class="bordered">Unit</th>
+            <th scope="col" class="bordered">Location</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>            
+        <tr *ngFor="let sensor of sensors">
+            <th scope="row" class="less-cell">
+                <app-edit-sensor [id]="sensor.id"></app-edit-sensor>
+            </th>
+            <td class="bordered">
+                <label type="button" class="btn-link sensor-name"data-toggle="tooltip" title="sensor.description">
+                    {{sensor.name}}
+                </label>                    
+            </td>
+            <td class="bordered">{{sensor.model}}</td>
+            <td class="bordered">{{sensor.sensorType.type}}</td>
+            <td class="bordered">from + {{sensor.rangeFrom}} + to + {{sensor.rangeTo}}</td>
+            <td class="bordered">{{sensor.sensorUnit.unit}}</td>
+            <td class="bordered">{{sensor.location}</td>
+            <th scope="row" class="less-cell">                    
+               <app-delete-sensor [id]="sensor.id"></app-delete-sensor>
+            </th>
+        </tr>
+    </tbody>
+</table>
