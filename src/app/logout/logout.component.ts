@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JWT_TOKEN_KEY, USERNAME_KEY, AUTHORITIES_KEY } from 'src/env.consts';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,14 +9,13 @@ import { JWT_TOKEN_KEY, USERNAME_KEY, AUTHORITIES_KEY } from 'src/env.consts';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
   }
 
   logout(): void {
-    window.sessionStorage.removeItem(JWT_TOKEN_KEY);
-    window.sessionStorage.removeItem(USERNAME_KEY);
-    window.sessionStorage.removeItem(AUTHORITIES_KEY);
+    this.tokenStorage.signOut();
+    window.location.reload();
   }
 }
