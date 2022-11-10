@@ -1,0 +1,62 @@
+<form class="sensor-form" >
+  <fieldset>
+    <div class="row mb-3">
+      <label for="sensor-name" class="col-sm-2 col-form-label">Name*</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="sensor-name" placeholder="Name" [(ngModel)]="form.name" name="name"
+          required maxLength="30">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="sensor-model" class="col-sm-2 col-form-label">Model*</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="sensor-model" placeholder="Model" [(ngModel)]="form.model"
+          name="model" required maxLength="15">
+      </div>
+    </div>
+    <div class="row mb-3 range">
+      <label for="sensor-range" class="col-sm-2 col-form-label range-label">Range</label>
+      <label for="range-from" class="col-sm-2 col-form-label">From</label>
+      <input type="number" step="1" value="0" id="range-from" [(ngModel)]="form.rangeFrom" name="rangeFrom" />
+      <label for="range-to" class="col-sm-2 col-form-label">To</label>
+      <input type="number" step="1" value="0" id="range-to" [(ngModel)]="form.rangeTo" name="rangeTo" />
+    </div>
+    <div class="row mb-3">
+      <label for="sensor-type" class="col-sm-2 col-form-label" >Type*</label>
+      <div class="col-sm-10">
+        <select id="sensor-type" class="form-select" [(ngModel)]="form.type" name="type">
+          <option selected>Select</option>
+          <option *ngFor="let type of types" [value]="type.type" >{{type.type}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="sensor-unit" class="col-sm-2 col-form-label">Unit*</label>
+      <div class="col-sm-10">
+        <select id="sensor-unit" class="form-select" [(ngModel)]="form.unit" name="unit">
+          <option selected>Select</option>
+          <option *ngFor="let unit of units" [value]="unit.unit">{{unit.unit}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="sensor-location" class="col-sm-2 col-form-label">Location</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="sensor-location" [(ngModel)]="form.location" name="location"
+          placeholder="Location" maxlength="40">
+      </div>
+    </div>
+    <div class="row mb-3 description">
+      <label for="sensor-description" class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-10">
+        <textarea id="sensor-description" [(ngModel)]="form.description" name="description" placeholder="Description"
+          maxlength="200"> </textarea>
+      </div>
+    </div>
+    <div class="row mb-3 buttons">
+      <button type="submit" class="btn btn-primary" (click)="saveSensor()">Save</button>
+      <button type="button" class="btn btn-primary" (click)="goToSensors()">Cansel</button>
+      <router-outlet></router-outlet>
+    </div>
+  </fieldset>
+</form>

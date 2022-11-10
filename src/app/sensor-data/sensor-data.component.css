@@ -1,0 +1,87 @@
+.sensor-form {
+    position: relative;
+    width: 500px;
+    height: 600px;
+    margin: 5vh auto;
+    background-color: whitesmoke;    
+}
+
+fieldset {
+    position: absolute;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto 30% auto;
+    width: 400px;
+    height: 520px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+}
+
+div {
+    display: grid;
+    grid-template-columns: 25% auto;
+    align-items: center;
+}
+
+label {
+    font-size: large;
+    font-weight: bolder;
+}
+
+input,
+select,
+textarea {
+    height: 40px;
+    width: 290px;
+    border: 2px solid gray;
+    border-radius: 0;
+}
+
+textarea {
+    height: 140px
+}
+
+.description label {
+    align-self: start;
+}
+
+button {
+    width: 75%;
+    height: 40px;
+    background-color: rgb(204, 195, 195);
+    border: 2px solid gray;
+    border-radius: 7px;
+    color: black;
+    font-size: large;
+    font-weight: bolder;
+    justify-self: center;
+}
+
+.range {
+    display: grid;
+    grid-template-columns: 25% 30px 25% 30px 25%;
+    width: 130%;
+    justify-self: center;
+}
+
+.range input {
+    width: 120px;
+    justify-self: end;
+}
+
+.range label {
+    font-size: small;
+    font-weight: normal;
+    justify-self: start;
+}
+
+.range .range-label {
+    font-size: large;
+    font-weight: bolder;
+    justify-self: center;
+}
+
+.buttons {
+    grid-template-columns: repeat(2, auto);
+}
