@@ -14,10 +14,10 @@
     <tbody>            
         <tr *ngFor="let sensor of sensors">
             <th scope="row" class="less-cell">
-                <app-edit-sensor [id]="sensor.id"></app-edit-sensor>
+                <app-edit-sensor [id]="sensor.id" *ngIf="isAdmin"></app-edit-sensor>
             </th>
             <td class="bordered">
-                <label type="button" class="btn-link sensor-name"data-toggle="tooltip" [title]="sensor.description">
+                <label type="button" class="btn-link sensor-name"data-toggle="tooltip" [title]="sensor.description" >
                     {{sensor.name}}
                 </label>                    
             </td>
@@ -27,7 +27,7 @@
             <td class="bordered">{{sensor.sensorUnit.unit}}</td>
             <td class="bordered">{{sensor.location}}</td>
             <th scope="row" class="less-cell">                    
-               <app-delete-sensor [id]="sensor.id"></app-delete-sensor>
+               <app-delete-sensor [id]="sensor.id" *ngIf="isAdmin"></app-delete-sensor>
             </th>
         </tr>
     </tbody>
