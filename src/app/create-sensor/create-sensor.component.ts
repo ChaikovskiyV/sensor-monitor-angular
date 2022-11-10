@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IS_NEW_SENSOR } from 'src/env.consts';
+import { IS_NEW_SENSOR_KEY } from 'src/env.consts';
 
 @Injectable()
 @Component({
@@ -16,7 +16,7 @@ export class CreateSensorComponent implements OnInit {
   }
 
   public goToSensorForm() {
-    sessionStorage.setItem(IS_NEW_SENSOR, true.toString());
+    sessionStorage.setItem(IS_NEW_SENSOR_KEY, true.toString());
     this.router.navigate(['/sensor-form']);
   }
 }
