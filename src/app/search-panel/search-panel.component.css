@@ -1,0 +1,25 @@
+.search-panel {
+    position: absolute;
+    top: 20px;
+    left: 10vw;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    width: 40vw;
+    justify-items: start;
+    align-items: center;
+}
+
+input,
+button {
+    height: 30px;
+    border: 2px solid gray;
+}
+
+input {
+    width: 25vw;
+}
+
+button {
+    width: 100px;
+    border-radius: 15px;
+}
