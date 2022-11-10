@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SensorsComponent } from './sensors/sensors.component';
-import { SensorFormComponent } from './sensor-form/sensor-form.component';
+import { SensorDataComponent } from './sensor-data/sensor-data.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {httpInterceptorProviders} from './auth/auth-interceptor';
@@ -15,21 +15,23 @@ import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { AddSensorComponent } from './add-sensor/add-sensor.component';
 import { PaginationBlockComponent } from './pagination-block/pagination-block.component';
 import { SensorTableComponent } from './sensor-table/sensor-table.component';
-import { LogoutComponent } from './logout/logout.component'
+import { LogoutComponent } from './logout/logout.component';
+import { CreateSensorComponent } from './create-sensor/create-sensor.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SensorsComponent,
-    SensorFormComponent,
+    SensorDataComponent,
     DeleteSensorComponent,
     EditSensorComponent,
     SearchPanelComponent,
     AddSensorComponent,
     PaginationBlockComponent,
     SensorTableComponent,
-    LogoutComponent
+    LogoutComponent,
+    CreateSensorComponent
   ],
   imports: [
     BrowserModule,
