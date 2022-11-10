@@ -16,6 +16,10 @@ export class DeleteSensorComponent implements OnInit {
   }
 
   deleteSensor(): void {
-    this.httpService.deleteSensor(this.id);
+    this.httpService.deleteSensor(this.id).subscribe(
+      {
+        next: () => window.location.reload()
+      }
+    );
   }
 }
