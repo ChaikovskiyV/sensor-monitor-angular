@@ -45,8 +45,8 @@ export class TokenStorageService {
     const authorities = sessionStorage.getItem(AUTHORITIES_KEY);
 
     if (sessionStorage.getItem(JWT_TOKEN_KEY) && authorities) {
-      JSON.parse(authorities).forEach((autority: string) => {
-        this.roles.push(autority);
+      JSON.parse(authorities).forEach((autority: {'authority':string}) => {
+        this.roles.push(autority['authority']);
       });
     }
 
