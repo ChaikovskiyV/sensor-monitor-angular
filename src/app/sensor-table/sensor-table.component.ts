@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SensorInfo } from '../sensor-data/sensor-info';
+import { VerificationAdminService } from '../services/verification-admin.service';
 
 @Component({
   selector: 'app-sensor-table',
@@ -8,9 +9,10 @@ import { SensorInfo } from '../sensor-data/sensor-info';
 })
 export class SensorTableComponent implements OnInit {
   @Input() sensors: SensorInfo[] = [];
+  @Input() isAdmin: boolean = false;
 
-  constructor() { }
+  constructor(private hideElement: VerificationAdminService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
   }
 }
