@@ -1,0 +1,26 @@
+.sensors {
+    width: 90vw;
+    height: 90vh;
+    margin: 5vh auto;
+    background-color: whitesmoke;
+    position: relative;
+}
+
+.bottom-panel {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 200px auto 150px;
+    width: 70vw;
+    top: 50vh;
+    left: 10vw;
+}
+
+app-pagination-block {
+    justify-self: end;
+}
+
+label {
+    justify-self: end;
+    font-size: larger;
+    font-weight: bolder;
+}

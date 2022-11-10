@@ -1,0 +1,16 @@
+<div class="sensors" *ngIf="info.token; else loggedOut">
+    <app-search-panel></app-search-panel>
+    <app-logout></app-logout>
+    <app-sensor-table [sensors]="sensors" [isAdmin]="isAdmin"></app-sensor-table>
+    <div class="bottom-panel">  
+    <app-create-sensor *ngIf="isAdmin"></app-create-sensor>
+    <app-pagination-block [currentPage]="currentPage" [pagesNumber]="pagesNumber" class="pagination">        
+    </app-pagination-block>
+    <label>Total {{resultsNumber}}</label> 
+    </div>
+</div>
+
+<ng-template #loggedOut>
+    Please <a routerLink="">login</a>
+    <router-outlet></router-outlet>
+</ng-template>
