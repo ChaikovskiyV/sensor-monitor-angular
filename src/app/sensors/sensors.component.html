@@ -1,10 +1,10 @@
-<div class="sensors" *ngIf="info.token; else loggedOut">
-    <app-search-panel></app-search-panel>
+<div class="sensors" *ngIf="tokenInfo.token; else loggedOut">
+    <app-search-panel (onSearchByParam)="onSearchByParam($event)"></app-search-panel>
     <app-logout></app-logout>
     <app-sensor-table [sensors]="sensors" [isAdmin]="isAdmin"></app-sensor-table>
     <div class="bottom-panel">  
     <app-create-sensor *ngIf="isAdmin"></app-create-sensor>
-    <app-pagination-block [currentPage]="currentPage" [pagesNumber]="pagesNumber" class="pagination">        
+    <app-pagination-block [pagesNumber]="pagesNumber" (onPageChanged)="onPageChanged($event)" class="pagination">        
     </app-pagination-block>
     <label>Total {{resultsNumber}}</label> 
     </div>

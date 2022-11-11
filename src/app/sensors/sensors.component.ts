@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { SensorInfo } from '../sensor-data/sensor-info';
 import { HttpService } from '../services/http.service';
-import { SearchParams } from '../services/search-params';
+import { SearchParams } from './search-params';
 import { VerificationAdminService } from '../services/verification-admin.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { VerificationAdminService } from '../services/verification-admin.service
 })
 export class SensorsComponent implements OnInit {
 
-  info: any;
+  tokenInfo: any;
   sensors: SensorInfo[] = [];
   currentPage: number = 1;
   pagesNumber: number = 1;
@@ -24,17 +24,23 @@ export class SensorsComponent implements OnInit {
   constructor(private token: TokenStorageService, private httpService: HttpService, private verificationAdmin: VerificationAdminService) { }
 
   ngOnInit(): void {
-    this.info = {
+    this.tokenInfo = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
-    this.loadSensors(this.currentPage, this.searchParam);
+
     this.isAdmin = this.verificationAdmin.isAdmin();
+
+    this.loadSensors(this.currentPage, this.searchParam);
   }
 
   onPageChanged(page: any) {
     this.loadSensors(page, this.searchParam);
+  }
+
+  onSearchByParam(searchParam: any) {
+    this.loadSensors(this.currentPage, searchParam);
   }
 
   loadSensors(page: number, searchParam: string) {
