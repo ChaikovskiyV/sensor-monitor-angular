@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SearchParams } from './search-params';
+import { SearchParams } from '../sensors/search-params';
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 4;

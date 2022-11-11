@@ -6,7 +6,7 @@ import { PageDataInfo } from '../sensor-data/page-data-info';
 import { SensorInfo } from '../sensor-data/sensor-info';
 import { SensorTypeInfo } from '../sensor-data/sensor-type-info';
 import { SensorUnitInfo } from '../sensor-data/sensor-unit-info';
-import { SearchParams } from './search-params';
+import { SearchParams } from '../sensors/search-params';
 import { UrlBuilderService } from './url-builder.service';
 
 @Injectable({
