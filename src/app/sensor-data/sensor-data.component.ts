@@ -1,14 +1,11 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CURRENT_SENSOR_ID_KEY, IS_NEW_SENSOR_KEY } from 'src/env.consts';
 import { HttpService } from '../services/http.service';
+import { SensorParamsStorageService } from '../services/sensor-params-storage.service';
 import { SensorInfo } from './sensor-info';
 import { SensorRangeInfo } from './sensor-range-info';
 import { SensorTypeInfo } from './sensor-type-info';
 import { SensorUnitInfo } from './sensor-unit-info';
-
-const IS_NEW = sessionStorage.getItem(IS_NEW_SENSOR_KEY);
-const SENSOR_ID = sessionStorage.getItem(CURRENT_SENSOR_ID_KEY);
 
 @Injectable()
 @Component({
@@ -19,51 +16,45 @@ const SENSOR_ID = sessionStorage.getItem(CURRENT_SENSOR_ID_KEY);
 export class SensorDataComponent implements OnInit {
   form: any = {};
   errorMessage: string = '';
-  currentSensorId:number = 0;
+  currentSensorId: number = 0;
+  isNewSensor: boolean = false;
   types: SensorTypeInfo[] = [];
   units: SensorUnitInfo[] = [];
   sensorInfo: SensorInfo = new SensorInfo(0, '', '', '', new SensorRangeInfo(0, 0), new SensorTypeInfo(0, ''), new SensorUnitInfo(0, ''), '');
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router, private sensorParams: SensorParamsStorageService) { }
 
   ngOnInit(): void {
+    this.currentSensorId = this.sensorParams.getSensorCurrentId();
+    this.isNewSensor = this.sensorParams.getIsNewSensor();
+
     this.httpService.findSensorTypes().subscribe({
       next: (data) => this.types = data
     });
+
     this.httpService.findSensorUnits().subscribe({
       next: (data) => this.units = data
     });
-    if(SENSOR_ID) {
-      this.loadExistSensor(SENSOR_ID);
+
+    if (this.currentSensorId) {
+      this.loadExistSensor();
     }
   }
 
-  public saveSensor() {
-    console.log(IS_NEW);
-    if (IS_NEW) {
+  public onSaveSensor() {
+    if (this.isNewSensor) {
       this.saveNewSensor();
-    } else if(this.currentSensorId) {
-      this.httpService.editSensor(this.sensorInfo).subscribe({
-        next: () => this.cleanSensorParametersAndReturnToSensors(),
-        error: (error) => this.errorMessage = error.error.errorMessage
-      })
+    } else if (this.currentSensorId) {
+      this.modifySensor();
     }
   }
 
-  public goToSensors() {
+  public onGoToSensors() {
     this.cleanSensorParametersAndReturnToSensors();
   }
 
   private saveNewSensor() {
-    this.sensorInfo.name = this.form.name;
-    this.sensorInfo.model = this.form.model;
-    this.sensorInfo.location = this.form.location;
-    this.sensorInfo.description = this.form.description;
-    this.sensorInfo.sensorType.type = this.form.type;
-    this.sensorInfo.sensorUnit.unit = this.form.unit;
-    this.sensorInfo.sensorRange.rangeFrom = this.form.rangeFrom;
-    this.sensorInfo.sensorRange.rangeTo = this.form.rangeTo;
-    console.log(this.sensorInfo);
+    this.prepareSensor();
 
     this.httpService.createSensor(this.sensorInfo).subscribe({
       next: () => {
@@ -78,26 +69,45 @@ export class SensorDataComponent implements OnInit {
     })
   }
 
-  private loadExistSensor(id:string) {
-    this.currentSensorId = Number.parseInt(id);
-    this.httpService.findSensor(this.currentSensorId).subscribe({
-      next: (data) => this.sensorInfo = data,
+  private modifySensor() {
+    this.prepareSensor();
+
+    this.httpService.editSensor(this.sensorInfo).subscribe({
+      next: () => this.cleanSensorParametersAndReturnToSensors(),
       error: (error) => this.errorMessage = error.error.errorMessage
     })
+  }
 
-    this.form.name = this.sensorInfo.name;
-    this.form.model = this.sensorInfo.model;
-    this.form.location = this.sensorInfo.location;
-    this.form.description = this.sensorInfo.description;
-    this.form.type = this.sensorInfo.sensorType.type;
-    this.form.unit = this.sensorInfo.sensorUnit.unit;
-    this.form.rangeFrom = this.sensorInfo.sensorRange.rangeFrom;
-    this.form.rangeTo = this.sensorInfo.sensorRange.rangeTo;
+  private prepareSensor(): void {
+    this.sensorInfo.name = this.form.name;
+    this.sensorInfo.model = this.form.model;
+    this.sensorInfo.location = this.form.location;
+    this.sensorInfo.description = this.form.description;
+    this.sensorInfo.sensorType.type = this.form.type;
+    this.sensorInfo.sensorUnit.unit = this.form.unit;
+    this.sensorInfo.sensorRange.rangeFrom = this.form.rangeFrom;
+    this.sensorInfo.sensorRange.rangeTo = this.form.rangeTo;
+  }
+
+  private loadExistSensor() {
+    this.httpService.findSensor(this.currentSensorId).subscribe({
+      next: (data) => {
+        this.sensorInfo.id = data.id;
+        this.form.name = data.name;
+        this.form.model = data.model;
+        this.form.location = data.location;
+        this.form.description = data.description;
+        this.form.type = data.sensorType.type;
+        this.form.unit = data.sensorUnit.unit;
+        this.form.rangeFrom = data.sensorRange.rangeFrom;
+        this.form.rangeTo = data.sensorRange.rangeTo;
+      },
+      error: (error) => this.errorMessage = error.error.errorMessage
+    })
   }
 
   private cleanSensorParametersAndReturnToSensors() {
-    sessionStorage.removeItem(IS_NEW_SENSOR_KEY);
-    sessionStorage.removeItem(CURRENT_SENSOR_ID_KEY);
+    this.sensorParams.cleanSensorParams();
     this.router.navigate(['/sensors']);
   }
 }
