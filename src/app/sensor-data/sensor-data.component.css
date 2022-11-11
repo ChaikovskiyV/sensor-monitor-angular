@@ -1,7 +1,7 @@
 .sensor-form {
     position: relative;
     width: 500px;
-    height: 600px;
+    height: 90vh;
     margin: 5vh auto;
     background-color: whitesmoke;    
 }
@@ -11,7 +11,7 @@ fieldset {
     display: grid;
     grid-template-rows: auto auto auto auto auto auto 30% auto;
     width: 400px;
-    height: 520px;
+    height: 85vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -84,4 +84,20 @@ button {
 
 .buttons {
     grid-template-columns: repeat(2, auto);
+}
+
+.error-message, .range-error {
+    display: inline;
+    width: 115%;
+    grid-row: 2;    
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background-color: pink;
+    font-size: 11px;    
+    text-align: center;
+}
+
+.range-error {
+    grid-column-start: 3;
+    grid-column-end: 6;
 }

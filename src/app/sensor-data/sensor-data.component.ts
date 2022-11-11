@@ -7,7 +7,9 @@ import { SensorRangeInfo } from './sensor-range-info';
 import { SensorTypeInfo } from './sensor-type-info';
 import { SensorUnitInfo } from './sensor-unit-info';
 
-@Injectable()
+@Injectable({ 
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-sensor-form',
   templateUrl: './sensor-data.component.html',
@@ -22,7 +24,7 @@ export class SensorDataComponent implements OnInit {
   units: SensorUnitInfo[] = [];
   sensorInfo: SensorInfo = new SensorInfo(0, '', '', '', new SensorRangeInfo(0, 0), new SensorTypeInfo(0, ''), new SensorUnitInfo(0, ''), '');
 
-  constructor(private httpService: HttpService, private router: Router, private sensorParams: SensorParamsStorageService) { }
+  constructor(private httpService: HttpService, private router: Router, private sensorParams: SensorParamsStorageService) {}
 
   ngOnInit(): void {
     this.currentSensorId = this.sensorParams.getSensorCurrentId();

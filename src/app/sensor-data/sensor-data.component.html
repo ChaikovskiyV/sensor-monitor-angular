@@ -1,60 +1,89 @@
-<form class="sensor-form" >
+<form class="sensor-form" novalidate>
   <fieldset>
     <div class="row mb-3">
       <label for="sensor-name" class="col-sm-2 col-form-label">Name*</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="sensor-name" placeholder="Name" [(ngModel)]="form.name" name="name"
-          required maxLength="30">
+          #name="ngModel" required pattern=".{1,30}">
+        <div [hidden]="name.valid || name.untouched" class="error-message">
+          The name can't be empty or longer than 30 characters.
+        </div>
       </div>
     </div>
+
     <div class="row mb-3">
       <label for="sensor-model" class="col-sm-2 col-form-label">Model*</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="sensor-model" placeholder="Model" [(ngModel)]="form.model"
-          name="model" required maxLength="15">
+          name="model" #model="ngModel" required pattern=".{1,15}">
+        <div [hidden]="model.valid || model.untouched" class="error-message">
+          The model can't be empty or longer than 15 characters.
+        </div>
       </div>
     </div>
+
     <div class="row mb-3 range">
       <label for="sensor-range" class="col-sm-2 col-form-label range-label">Range</label>
       <label for="range-from" class="col-sm-2 col-form-label">From</label>
-      <input type="number" step="1" value="0" id="range-from" [(ngModel)]="form.rangeFrom" name="rangeFrom" />
+      <input type="number" step="1" value="0" id="range-from" [(ngModel)]="form.rangeFrom" name="rangeFrom"
+        #rangeFrom="ngModel" />
       <label for="range-to" class="col-sm-2 col-form-label">To</label>
-      <input type="number" step="1" value="0" id="range-to" [(ngModel)]="form.rangeTo" name="rangeTo" />
-    </div>
-    <div class="row mb-3">
-      <label for="sensor-type" class="col-sm-2 col-form-label" >Type*</label>
-      <div class="col-sm-10">
-        <select id="sensor-type" class="form-select" [(ngModel)]="form.type" name="type">
-          <option selected>Select</option>
-          <option *ngFor="let type of types" [value]="type.type" >{{type.type}}</option>
-        </select>
+      <input type="number" step="1" value="0" id="range-to" [(ngModel)]="form.rangeTo" name="rangeTo"
+        #rangeTo="ngModel" />
+      <div [hidden]="rangeTo.value > rangeFrom.value || rangeFrom.untouched || rangeTo.untouched" class="range-error">
+        The 'to' parameter has to be more than the 'from' one.
       </div>
     </div>
+
+    <div class="row mb-3">
+      <label for="sensor-type" class="col-sm-2 col-form-label">Type*</label>
+      <div class="col-sm-10">
+        <select id="sensor-type" class="form-select" [(ngModel)]="form.type" name="type" #type="ngModel" required>
+          <option *ngFor="let type of types" [value]="type.type">{{type.type}}</option>
+        </select>
+        <div [hidden]="type.valid || type.untouched" class="error-message">
+          Please choose one of type options.
+        </div>
+      </div>
+    </div>
+
     <div class="row mb-3">
       <label for="sensor-unit" class="col-sm-2 col-form-label">Unit*</label>
       <div class="col-sm-10">
-        <select id="sensor-unit" class="form-select" [(ngModel)]="form.unit" name="unit">
-          <option selected>Select</option>
+        <select id="sensor-unit" class="form-select" [(ngModel)]="form.unit" name="unit" #unit="ngModel" required>
           <option *ngFor="let unit of units" [value]="unit.unit">{{unit.unit}}</option>
         </select>
+        <div [hidden]="unit.valid || unit.untouched" class="error-message">
+          Please choose one of unit options.
+        </div>
       </div>
     </div>
+
     <div class="row mb-3">
       <label for="sensor-location" class="col-sm-2 col-form-label">Location</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="sensor-location" [(ngModel)]="form.location" name="location"
-          placeholder="Location" maxlength="40">
+          #location="ngModel" placeholder="Location" pattern=".{0,40}">
+        <div [hidden]="location.valid || location.untouched" class="error-message">
+          The location can't be longer than 40 characters.
+        </div>
       </div>
     </div>
+    
     <div class="row mb-3 description">
       <label for="sensor-description" class="col-sm-2 col-form-label">Description</label>
       <div class="col-sm-10">
-        <textarea id="sensor-description" [(ngModel)]="form.description" name="description" placeholder="Description"
-          maxlength="200"> </textarea>
+        <textarea id="sensor-description" [(ngModel)]="form.description" name="description" #description="ngModel"
+          placeholder="Description" pattern=".{0,200}"></textarea>
+        <div [hidden]="description.valid || description.untouched" class="error-message">
+          The description can't be longer than 200 characters.
+        </div>
       </div>
+
     </div>
     <div class="row mb-3 buttons">
-      <button type="submit" class="btn btn-primary" (click)="onSaveSensor()">Save</button>
+      <button type="submit" class="btn btn-primary" (click)="onSaveSensor()"
+        [disabled]="rangeFrom.value >= rangeTo.value || name.invalid || model.invalid || location.invalid || description.invalid">Save</button>
       <button type="button" class="btn btn-primary" (click)="onGoToSensors()">Cansel</button>
       <router-outlet></router-outlet>
     </div>
