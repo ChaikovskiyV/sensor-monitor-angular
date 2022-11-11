@@ -1,16 +1,16 @@
 <nav aria-label="..." class="pagination-block">
   <ul class="pagination">
-    <li class="page-item disabled" (click)="goToPreviousPage()">
+    <li class="page-item disabled" (click)="onGoToPreviousPage()">
       <a class="page-link">Previous</a>
     </li>
 
-    <ul class="pagination" *ngFor="let page of pages">
-      <li class="page-item" [class.active]="getPageState(page)" (click)="choosePage(page)">
+    <ul class="pagination" *ngFor="let page of pagesArray(pagesNumber)">
+      <li class="page-item" [class.active]="getPageState(page)" (click)="onChoosePage(page)">
         <a class="page-link">{{page}}</a>
       </li>
     </ul>
 
-    <li class="page-item disabled" (click)="goToNextPage()">
+    <li class="page-item disabled" (click)="onGoToNextPage()">
       <a class="page-link">Next</a>
     </li>
   </ul>

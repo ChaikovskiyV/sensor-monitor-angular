@@ -6,57 +6,74 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./pagination-block.component.css']
 })
 export class PaginationBlockComponent implements OnInit {
-  @Input() currentPage: number = 1;
-  @Output() currentPageChanged = new EventEmitter<number>();
-  @Input() pagesNumber: number = 1;
+  @Input() pagesNumber: number = 0;
+  @Output() onPageChanged = new EventEmitter<number>();
+  currentPage: number = 1;
   pageStates: boolean[] = [];
   pages: number[] = [];
 
-  onCurrentPageChanged(model: number) {
-    this.currentPage = model;
-    this.currentPageChanged.emit(model);
+  currentPageChanged(page: any) {
+    this.onPageChanged.emit(page);
   }
 
   constructor() { }
 
   ngOnInit(): void {
-    this.pageStates = Array(this.pagesNumber);
-    this.pageStates.fill(false);
-    this.pageStates.splice(this.currentPage - 1, 1, true);
-
-    for (let i = 0; i <= this.pagesNumber; i++) {
-      this.pages.push(i + 1);
-    }
+    this.fillPageStates();
   }
 
   public getPageState(page: number) {
     return this.pageStates.find((el, idx) => idx === page - 1);
   }
 
-  public choosePage(page:number) {
-    if(page === this.currentPage) {
+  public pagesArray(pagesNumber: number): number[] {
+    let pages: number[] = [];
+    for (let i = 1; i <= pagesNumber; i++) {
+      pages.push(i);
+    }
+
+    this.pages = pages;
+
+    return pages;
+  }
+
+  public onChoosePage(page: number) {
+    if (page === this.currentPage) {
       return;
     }
     this.replacePageStatus(page);
+    this.currentPageChanged(page);
   }
 
-  public goToPreviousPage() {
-    if(this.pages.indexOf(this.currentPage) === 0) {
+  public onGoToPreviousPage() {
+    if (this.pages.indexOf(this.currentPage) === 0) {
       return;
     }
     this.replacePageStatus(this.currentPage - 1);
+    this.currentPageChanged(this.currentPage);
   }
 
-  public goToNextPage() {
-    if(this.pages.indexOf(this.currentPage) === this.pages.length - 1) {
+  public onGoToNextPage() {
+    if (this.pages.indexOf(this.currentPage) === this.pages.length - 1) {
       return;
     }
     this.replacePageStatus(this.currentPage + 1);
+    this.currentPageChanged(this.currentPage);
   }
 
-  private replacePageStatus(page:number) {
+  /**
+   * Replace the meaning of the class 'active' for pages depending on chosen page
+   * @param page - the current page number
+   */
+  private replacePageStatus(page: number) {
     this.pageStates.splice(this.currentPage - 1, 1, false);
     this.pageStates.splice(page - 1, 1, true);
     this.currentPage = page;
+  }
+
+  private fillPageStates() {
+    this.pageStates = Array(this.pagesNumber);
+    this.pageStates.fill(false);
+    this.pageStates.splice(this.currentPage - 1, 1, true);
   }
 }
