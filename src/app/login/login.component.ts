@@ -1,10 +1,9 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AuthLoginInfo } from "../auth/auth-login-info";
 import { TokenStorageService } from '../auth/token-storage.service';
 import { Route, Router } from '@angular/router';
 
-@Injectable()
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

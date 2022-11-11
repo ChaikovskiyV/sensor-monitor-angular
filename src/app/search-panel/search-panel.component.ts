@@ -20,5 +20,4 @@ export class SearchPanelComponent implements OnInit {
       this.onSearchByParam.emit(searchParam);
     }
   }
-
 }

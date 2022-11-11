@@ -6,7 +6,9 @@ import { TokenStorageService } from './token-storage.service';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
-@Injectable()
+@Injectable({ 
+    providedIn: 'root'
+  })
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private tokenStorage: TokenStorageService) { }
 

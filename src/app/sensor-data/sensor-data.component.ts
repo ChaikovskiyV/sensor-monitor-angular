@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../services/http.service';
 import { SensorParamsStorageService } from '../services/sensor-params-storage.service';
@@ -7,9 +7,6 @@ import { SensorRangeInfo } from './sensor-range-info';
 import { SensorTypeInfo } from './sensor-type-info';
 import { SensorUnitInfo } from './sensor-unit-info';
 
-@Injectable({ 
-  providedIn: 'root'
-})
 @Component({
   selector: 'app-sensor-form',
   templateUrl: './sensor-data.component.html',

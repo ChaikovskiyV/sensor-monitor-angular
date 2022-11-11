@@ -1,8 +1,7 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SensorParamsStorageService } from '../services/sensor-params-storage.service';
 
-@Injectable()
 @Component({
   selector: 'app-edit-sensor',
   templateUrl: './edit-sensor.component.html',
@@ -16,8 +15,7 @@ export class EditSensorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public goToSensorForm() {
-    console.log(this.id);
+  public onGoToSensorForm() {
     this.sensorParams.setSensorCurrentId(this.id);
     this.router.navigate(['/sensor-form']);
   }

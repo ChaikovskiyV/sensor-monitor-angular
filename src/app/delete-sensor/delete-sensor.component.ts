@@ -1,7 +1,6 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '../services/http.service';
 
-@Injectable()
 @Component({
   selector: 'app-delete-sensor',
   templateUrl: './delete-sensor.component.html',
@@ -15,7 +14,7 @@ export class DeleteSensorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteSensor(): void {
+  onDeleteSensor(): void {
     this.httpService.deleteSensor(this.id).subscribe(
       {
         next: () => window.location.reload()
