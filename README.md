@@ -26,4 +26,5 @@ This application includes three forms:
 ![Sensors data(user)](images/sensors-page-user.png)
 
 - Save-edit sensor form:
+
 ![Save-edit sensor form](images/save-edit-form.png)
