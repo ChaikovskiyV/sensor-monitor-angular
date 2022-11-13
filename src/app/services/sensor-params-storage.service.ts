@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CURRENT_SENSOR_ID_KEY, IS_NEW_SENSOR_KEY } from 'src/env.consts';
+import { AppConstants } from '../../app-constants';
 
 
 @Injectable({
@@ -7,27 +7,27 @@ import { CURRENT_SENSOR_ID_KEY, IS_NEW_SENSOR_KEY } from 'src/env.consts';
 })
 export class SensorParamsStorageService {
 
-  constructor() { }
+  constructor(private constants: AppConstants) { }
 
   public cleanSensorParams() {
-    sessionStorage.removeItem(CURRENT_SENSOR_ID_KEY);
-    sessionStorage.removeItem(IS_NEW_SENSOR_KEY);
+    sessionStorage.removeItem(this.constants.currentSensorIdKey);
+    sessionStorage.removeItem(this.constants.isNewSensorKey);
   }
 
   public setIsNewSensor() {
-    sessionStorage.setItem(IS_NEW_SENSOR_KEY, 'true');
+    sessionStorage.setItem(this.constants.isNewSensorKey, 'true');
   }
 
   public getIsNewSensor(): boolean {
-    return sessionStorage.getItem(IS_NEW_SENSOR_KEY) ? true : false;
+    return sessionStorage.getItem(this.constants.isNewSensorKey) ? true : false;
   }
 
   public setSensorCurrentId(id: number) {
-    sessionStorage.setItem(CURRENT_SENSOR_ID_KEY, id + '');
+    sessionStorage.setItem(this.constants.currentSensorIdKey, id + '');
   }
 
   public getSensorCurrentId(): number {
-    let currentId = sessionStorage.getItem(CURRENT_SENSOR_ID_KEY);
+    let currentId = sessionStorage.getItem(this.constants.currentSensorIdKey);
 
     return currentId ? Number.parseInt(currentId) : 0;
   }

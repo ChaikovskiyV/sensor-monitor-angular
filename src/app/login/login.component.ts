@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AuthLoginInfo } from "../auth/auth-login-info";
 import { TokenStorageService } from '../auth/token-storage.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 const UNAUTHORIZED_ERROR_MESSAGE = 'Login or password is not correct.';
 

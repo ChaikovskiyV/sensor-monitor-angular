@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IS_NEW_SENSOR_KEY } from 'src/env.consts';
+import { AppConstants } from '../../app-constants';
 
 @Component({
   selector: 'app-create-sensor',
@@ -9,13 +9,13 @@ import { IS_NEW_SENSOR_KEY } from 'src/env.consts';
 })
 export class CreateSensorComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private constants: AppConstants) { }
 
   ngOnInit(): void {
   }
 
   public onGoToSensorForm() {
-    sessionStorage.setItem(IS_NEW_SENSOR_KEY, true.toString());
+    sessionStorage.setItem(this.constants.isNewSensorKey, true.toString());
     this.router.navigate(['/sensor-form']);
   }
 }

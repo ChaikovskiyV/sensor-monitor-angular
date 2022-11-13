@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AUTHORITIES_KEY, JWT_TOKEN_KEY, USERNAME_KEY } from 'src/env.consts';
+import { AppConstants } from '../../app-constants';
+
 
 const TOKEN_PREFIX = 'Bearer ';
 
@@ -9,43 +10,43 @@ const TOKEN_PREFIX = 'Bearer ';
 export class TokenStorageService {
   private roles: Array<string> = [];
 
-  constructor() { }
+  constructor(private constants: AppConstants) { }
 
   signOut() {
     window.sessionStorage.clear();
   }
 
   public saveToken(token: string) {
-    window.sessionStorage.removeItem(JWT_TOKEN_KEY);
-    window.sessionStorage.setItem(JWT_TOKEN_KEY, token);
+    window.sessionStorage.removeItem(this.constants.jwtTokenKey);
+    window.sessionStorage.setItem(this.constants.jwtTokenKey, token);
   }
 
   public getToken(): string {
-    const token = sessionStorage.getItem(JWT_TOKEN_KEY);
+    const token = sessionStorage.getItem(this.constants.jwtTokenKey);
     return token ? TOKEN_PREFIX.concat(token) : '';
   }
 
   public saveUsername(username: string) {
-    window.sessionStorage.removeItem(USERNAME_KEY);
-    window.sessionStorage.setItem(USERNAME_KEY, username);
+    window.sessionStorage.removeItem(this.constants.usernameKey);
+    window.sessionStorage.setItem(this.constants.usernameKey, username);
   }
 
   public getUsername(): string {
-    const username = sessionStorage.getItem(USERNAME_KEY);
+    const username = sessionStorage.getItem(this.constants.usernameKey);
     return username ? username : '';
   }
 
   public saveAuthorities(authorities: string[]) {
-    window.sessionStorage.removeItem(AUTHORITIES_KEY);
-    window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+    window.sessionStorage.removeItem(this.constants.authoritiesKey);
+    window.sessionStorage.setItem(this.constants.authoritiesKey, JSON.stringify(authorities));
   }
 
   public getAuthorities(): string[] {
     this.roles = [];
-    const authorities = sessionStorage.getItem(AUTHORITIES_KEY);
+    const authorities = sessionStorage.getItem(this.constants.authoritiesKey);
 
-    if (sessionStorage.getItem(JWT_TOKEN_KEY) && authorities) {
-      JSON.parse(authorities).forEach((autority: {'authority':string}) => {
+    if (sessionStorage.getItem(this.constants.jwtTokenKey) && authorities) {
+      JSON.parse(authorities).forEach((autority: { 'authority': string }) => {
         this.roles.push(autority['authority']);
       });
     }
